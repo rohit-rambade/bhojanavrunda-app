@@ -8,7 +8,8 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Role } from "./enums/Role";
+import { number, object, string } from "yup";
+import { Role } from "../src/enums/Role";
 import { LoginCredentials } from "./types/auth/login";
 
 const initialLoginData: LoginCredentials = {
@@ -21,6 +22,13 @@ const roles = [
   { id: Role.Customer, label: "Customer", value: Role.Customer },
   { id: Role.Tenant, label: "Tenant", value: Role.Tenant },
 ];
+
+const loginValidationSchema = object({
+  UserName: string().required(),
+  Password: string().required(),
+  RoleId: number().required(),
+});
+
 const Login = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -30,6 +38,7 @@ const Login = () => {
         <Formik
           initialValues={initialLoginData}
           onSubmit={(values) => console.log("Submitted:", values)}
+          validationSchema={loginValidationSchema}
         >
           {({
             handleChange,
