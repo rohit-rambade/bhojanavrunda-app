@@ -2,14 +2,14 @@ import React from "react";
 import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const index = () => {
+const login = () => {
   return (
     <SafeAreaView>
-      <Text>index</Text>
+      <Text>login</Text>
     </SafeAreaView>
   );
 };
 
-export default index;
+export default login;
 
 const styles = StyleSheet.create({});
