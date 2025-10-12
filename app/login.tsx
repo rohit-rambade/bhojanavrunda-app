@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { number, object, string } from "yup";
+import * as Yup from "yup";
 import { Role } from "../src/enums/Role";
 import { LoginCredentials } from "./types/auth/login";
 
@@ -23,10 +23,13 @@ const roles = [
   { id: Role.Tenant, label: "Tenant", value: Role.Tenant },
 ];
 
-const loginValidationSchema = object({
-  UserName: string().required(),
-  Password: string().required(),
-  RoleId: number().required(),
+const loginValidationSchema = Yup.object().shape({
+  UserName: Yup.string()
+    .required("Username is required")
+    .min(7, "User name must be at least 4 characters")
+    .matches(/^[A-Za-z\s]+$/, "User name must contain only letters")
+    .trim(),
+  Password: Yup.string().required("Password is required").trim(),
 });
 
 const Login = () => {
@@ -46,8 +49,12 @@ const Login = () => {
             handleSubmit,
             values,
             setFieldValue,
+            errors,
           }) => (
             <View style={styles.form}>
+              <Text>{errors.UserName}</Text>
+              <Text>{errors.Password}</Text>
+              <Text>{errors.RoleId}</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Enter Username"

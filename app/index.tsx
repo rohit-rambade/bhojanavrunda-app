@@ -1,12 +1,15 @@
 import { Colors } from "@/src/theme/theme";
 import { router } from "expo-router";
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import logo from "../assets/logo/bhojanavrunda-logo.png";
 
 const index = () => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text style={{ fontSize: 50, marginBottom: 20 }}>BhojanaVrunda</Text>
+      <Image source={logo} style={styles.image} />
+
+      <Text style={{ fontSize: 50, marginBottom: 20 }}>Bhojanavrunda</Text>
 
       <Text style={styles.tagline}>Need/No-Need? one tap!</Text>
       <Pressable
@@ -50,5 +53,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
     letterSpacing: 0.3,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    resizeMode: "contain", // or 'cover', 'stretch', 'center', 'repeat'
   },
 });
