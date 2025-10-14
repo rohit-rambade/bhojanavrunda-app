@@ -1,3 +1,5 @@
+import { useAppSelector } from "@/src/store";
+import { router } from "expo-router";
 import { Formik } from "formik";
 import React from "react";
 import {
@@ -33,6 +35,9 @@ const loginValidationSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const { session } = useAppSelector((state) => state.auth);
+
+  console.log(session);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -94,6 +99,12 @@ const Login = () => {
                 onPress={() => handleSubmit()}
               >
                 <Text style={styles.buttonText}>Login</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => router.push("/register")}>
+                <Text style={styles.registerText}>
+                  Don’t have an account?{" "}
+                  <Text style={styles.registerLink}>Register</Text>
+                </Text>
               </TouchableOpacity>
             </View>
           )}
@@ -173,5 +184,14 @@ const styles = StyleSheet.create({
   label: {
     marginLeft: 10,
     fontSize: 16,
+  },
+  registerText: {
+    marginTop: 15,
+    fontSize: 14,
+    color: "#333",
+  },
+  registerLink: {
+    color: "#007AFF",
+    fontWeight: "bold",
   },
 });

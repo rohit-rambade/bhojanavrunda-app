@@ -1,18 +1,15 @@
-import { useAppSelector } from "@/src/store";
 import React from "react";
 import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const index = () => {
-  const { session } = useAppSelector((state) => state.auth);
-  console.log(session);
+const register = () => {
   return (
     <SafeAreaView>
-      <Text>index</Text>
+      <Text>register</Text>
     </SafeAreaView>
   );
 };
 
-export default index;
+export default register;
 
 const styles = StyleSheet.create({});

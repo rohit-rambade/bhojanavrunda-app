@@ -16,7 +16,9 @@ const index = () => {
         onPress={() => router.push("/login")}
         style={({ pressed }) => [
           styles.primaryBtn,
-          { backgroundColor: pressed ? Colors.primaryPressed : Colors.primary },
+          {
+            backgroundColor: pressed ? Colors.primaryPressed : Colors.primary,
+          },
         ]}
       >
         <Text style={styles.primaryBtnText}>Get Started</Text>
