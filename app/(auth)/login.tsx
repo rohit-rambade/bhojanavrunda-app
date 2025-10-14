@@ -1,4 +1,5 @@
-import { useAppSelector } from "@/src/store";
+import { Role } from "@/src/enums/Role";
+import { signInSuccess, useAppSelector } from "@/src/store";
 import { router } from "expo-router";
 import { Formik } from "formik";
 import React from "react";
@@ -10,9 +11,9 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { Role } from "../src/enums/Role";
-import { LoginCredentials } from "./types/auth/login";
+import { LoginCredentials } from "../types/auth/login";
 
 const initialLoginData: LoginCredentials = {
   UserName: "",
@@ -37,6 +38,8 @@ const loginValidationSchema = Yup.object().shape({
 const Login = () => {
   const { session } = useAppSelector((state) => state.auth);
 
+  const dispatch = useDispatch();
+
   console.log(session);
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -45,7 +48,11 @@ const Login = () => {
 
         <Formik
           initialValues={initialLoginData}
-          onSubmit={(values) => console.log("Submitted:", values)}
+          onSubmit={(values) => {
+            dispatch(signInSuccess("signInSuccess"));
+            console.log("Submitted:", values);
+            router.replace("/(tabs)");
+          }}
           validationSchema={loginValidationSchema}
         >
           {({
