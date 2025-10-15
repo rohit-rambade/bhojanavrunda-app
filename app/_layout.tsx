@@ -12,14 +12,13 @@ function RootLayoutContent() {
   const { session } = useAppSelector((s) => s.auth);
 
   useEffect(() => {
-    if (session === undefined) return; // wait for hydration
+    if (session === undefined) return;
 
     if (!session || !session.signedIn) {
       if (pathname !== "/login") router.replace("/login");
       return;
     }
 
-    // ✅ Redirect only when landing on "/" or "/login"
     if (pathname === "/" || pathname === "/login") {
       const role: string = "customer";
       router.replace(

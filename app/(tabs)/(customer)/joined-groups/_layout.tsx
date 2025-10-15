@@ -1,10 +1,11 @@
 import { Stack } from "expo-router";
 
-export default function DetailLayout() {
+export default function GroupsStack() {
   return (
     <Stack
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        title: "Groups",
       }}
     />
   );

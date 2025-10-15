@@ -51,7 +51,7 @@ const Login = () => {
           onSubmit={(values) => {
             dispatch(signInSuccess("signInSuccess"));
             console.log("Submitted:", values);
-            router.replace("/(tabs)");
+            router.replace("/(auth)/register");
           }}
           validationSchema={loginValidationSchema}
         >
@@ -107,15 +107,20 @@ const Login = () => {
               >
                 <Text style={styles.buttonText}>Login</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push("/register")}>
-                <Text style={styles.registerText}>
-                  Don’t have an account?{" "}
-                  <Text style={styles.registerLink}>Register</Text>
-                </Text>
-              </TouchableOpacity>
             </View>
           )}
         </Formik>
+        <TouchableOpacity
+          onPress={() => {
+            console.log("Navigating to register...");
+            router.push("/(auth)/register");
+          }}
+        >
+          <Text style={styles.registerText}>
+            Don’t have an account?{" "}
+            <Text style={styles.registerLink}>Register</Text>
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

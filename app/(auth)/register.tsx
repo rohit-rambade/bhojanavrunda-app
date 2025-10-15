@@ -1,15 +1,12 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, Text, View } from "react-native";
 
-const register = () => {
+export default function register() {
   return (
-    <SafeAreaView>
+    <View>
       <Text>register</Text>
-    </SafeAreaView>
+    </View>
   );
-};
-
-export default register;
+}
 
 const styles = StyleSheet.create({});
