@@ -13,9 +13,10 @@ function RootLayoutContent() {
     if (!session) return;
 
     if (session.signedIn) {
-      const role: string = "tenant";
+      const role: string = "customer";
 
-      if (role === "tenant") router.replace("/tenants");
+      if (role === "tenant") router.replace("/(tenant)");
+      else if (role === "customer") router.replace("/(customer)");
       else router.replace("/login");
     } else {
       router.replace("/login");
