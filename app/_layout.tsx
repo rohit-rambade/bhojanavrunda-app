@@ -1,5 +1,6 @@
+// app/_layout.tsx
 import store, { persistor, useAppSelector } from "@/src/store";
-import { Stack, useRouter } from "expo-router";
+import { Slot, usePathname, useRouter } from "expo-router";
 import React, { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { Provider } from "react-redux";
@@ -7,21 +8,25 @@ import { PersistGate } from "redux-persist/integration/react";
 
 function RootLayoutContent() {
   const router = useRouter();
-  const { session } = useAppSelector((state) => state.auth);
+  const pathname = usePathname();
+  const { session } = useAppSelector((s) => s.auth);
 
   useEffect(() => {
-    if (!session) return;
+    if (session === undefined) return; // wait for hydration
 
-    if (session.signedIn) {
-      const role: string = "customer";
-
-      if (role === "tenant") router.replace("/(tenant)");
-      else if (role === "customer") router.replace("/(customer)");
-      else router.replace("/login");
-    } else {
-      router.replace("/login");
+    if (!session || !session.signedIn) {
+      if (pathname !== "/login") router.replace("/login");
+      return;
     }
-  }, [session]);
+
+    // ✅ Redirect only when landing on "/" or "/login"
+    if (pathname === "/" || pathname === "/login") {
+      const role: string = "customer";
+      router.replace(
+        role === "tenant" ? "/(tabs)/(tenant)" : "/(tabs)/(customer)"
+      );
+    }
+  }, [session, pathname]);
 
   if (session === undefined) {
     return (
@@ -31,15 +36,7 @@ function RootLayoutContent() {
     );
   }
 
-  return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(admin)" />
-      <Stack.Screen name="(tenant)" />
-      <Stack.Screen name="(customer)" />
-      <Stack.Screen name="login" />
-      <Stack.Screen name="index" />
-    </Stack>
-  );
+  return <Slot />;
 }
 
 export default function RootLayout() {
