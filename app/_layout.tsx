@@ -8,22 +8,25 @@ import { PersistGate } from "redux-persist/integration/react";
 
 function RootLayoutContent() {
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname: string = usePathname();
   const { session } = useAppSelector((s) => s.auth);
 
   useEffect(() => {
     if (session === undefined) return;
 
+    const onRoot = pathname === "/";
+    const inAuth = pathname === "/login" || pathname === "/register";
+
     if (!session || !session.signedIn) {
-      if (pathname !== "/login") router.replace("/login");
+      if (!inAuth) router.replace("/login");
       return;
     }
 
-    if (pathname === "/" || pathname === "/login") {
+    if (onRoot || inAuth) {
       const role: string = "customer";
-      router.replace(
-        role === "tenant" ? "/(tabs)/(tenant)" : "/(tabs)/(customer)"
-      );
+      const target: string =
+        role === "tenant" ? "/(tabs)/(tenant)" : "/(tabs)/(customer)";
+      if (pathname !== target) router.replace(target);
     }
   }, [session, pathname]);
 

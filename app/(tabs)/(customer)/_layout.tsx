@@ -1,8 +1,7 @@
-import { Tabs } from "expo-router";
-import { Image } from "react-native";
-// (Use your icons if you want)
 import DashboardIcon from "@/assets/icons/dashboard-icon.png";
 import GroupsIcon from "@/assets/icons/groups.png";
+import { Tabs } from "expo-router";
+import { Image } from "react-native";
 
 export default function CustomerTabs() {
   return (
@@ -30,13 +29,14 @@ export default function CustomerTabs() {
               resizeMode="contain"
             />
           ),
-          headerShown: true,
+          // headerShown: true,
         }}
       />
 
       <Tabs.Screen
         name="joined-groups"
         options={{
+          headerShown: false,
           title: "Groups",
           tabBarIcon: () => (
             <Image

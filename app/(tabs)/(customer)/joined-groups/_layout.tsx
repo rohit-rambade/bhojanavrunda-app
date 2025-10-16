@@ -4,7 +4,7 @@ export default function GroupsStack() {
   return (
     <Stack
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
         title: "Groups",
       }}
     />

@@ -13,7 +13,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { LoginCredentials } from "../types/auth/login";
+import { LoginCredentials } from "./types/auth/login";
 
 const initialLoginData: LoginCredentials = {
   UserName: "",
@@ -51,7 +51,7 @@ const Login = () => {
           onSubmit={(values) => {
             dispatch(signInSuccess("signInSuccess"));
             console.log("Submitted:", values);
-            router.replace("/(auth)/register");
+            router.replace("/register");
           }}
           validationSchema={loginValidationSchema}
         >
@@ -113,7 +113,7 @@ const Login = () => {
         <TouchableOpacity
           onPress={() => {
             console.log("Navigating to register...");
-            router.push("/(auth)/register");
+            router.push("/register");
           }}
         >
           <Text style={styles.registerText}>
